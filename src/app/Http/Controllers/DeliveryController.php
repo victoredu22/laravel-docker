@@ -77,20 +77,19 @@ class DeliveryController extends Controller
     }
 
     $this->bookStock->updateStock($request);
-    $Delivery = $this->delivery->createDeliverDate($request);
+    $delivery = $this->delivery->createDeliverDate($request);
+    $delivery = $this->delivery->getDelivery($delivery->idDelivery);
+    $book = $this->book->getBookId($delivery->idBook);
+    $studenCourse = $this->studenCourse->getStudentById($delivery->idStudent);
+    $course = $this->course->getCursoById($studenCourse->idCourse);
 
-    $Delivery = $this->delivery->getDelivery($Delivery->idDelivery);
 
-    $Book = $this->book->getBookId($Delivery->idBook);
-
-    $StudentCourse = $this->studenCourse->getAlumnoByIdAlumno($Delivery->idStudent);
-    $Course = $this->course->getCursoById($StudentCourse->idCourse);
     return response()
       ->json([
         'ok' => true,
-        'pedido' => $Delivery,
-        'libro' => $Book,
-        'curso' => $Course,
+        'pedido' => $delivery,
+        'libro' => $book,
+        'curso' => $course,
       ]);
   }
 
@@ -315,6 +314,7 @@ class DeliveryController extends Controller
       $monthNumbers = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
 
       $deliveryYears = $this->delivery->getDeliveryYears($year);
+
       $sumDelivery = count($deliveryYears);
 
       $totalDeliveryYears = collect($monthNumbers)->map(function ($elem, $key) use ($year, $sumDelivery) {

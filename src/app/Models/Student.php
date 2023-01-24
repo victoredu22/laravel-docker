@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
-use Illuminate\Support\Facades\DB as FacadesDB;
 
 class Student extends Model
 {
@@ -18,23 +16,9 @@ class Student extends Model
    */
   public function getStudentsDetail()
   {
-    $get = FacadesDB::table('tblStudent')
+    $get = Student::select('tblStudent.idStudent', 'tblStudent.dni', 'tblStudent.email', 'tblDetailStudent.firstName', 'tblDetailStudent.lastName')
       ->join('tblDetailStudent', 'tblStudent.idStudent', 'tblDetailStudent.idStudent')
-      ->select('tblStudent.idStudent', 'tblStudent.dni', 'tblStudent.email', 'tblDetailStudent.firstName', 'tblDetailStudent.lastName')
       ->get();
-    return $get;
-  }
-
-
-  public function getStudenDetailByRut($numeroDocumento)
-  {
-    $get = FacadesDB::table('tblStudent')
-      ->join('tblDetailStudent', 'tblStudent.idStudent', 'tblDetailStudent.idStudent')
-      ->where('tblStudent.dni', $numeroDocumento)
-      ->select('tblStudent.idStudent', 'tblStudent.dni', 'tblStudent.email', 'tblDetailStudent.firstName', 'tblDetailStudent.lastName')
-      ->get()
-      ->first();
-
     return $get;
   }
 }

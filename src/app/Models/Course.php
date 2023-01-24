@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB as FacadesDB;
 
 class Course extends Model
 {
@@ -18,16 +17,13 @@ class Course extends Model
    */
   public function getCursoById($idCurso)
   {
-    $curso = new Course;
     $curso = Course::find($idCurso);
     return $curso;
   }
 
   public function getCursoAll()
   {
-    $get = FacadesDB::table('tblCourse')
-      ->get()
-      ->all();
+    $get = Course::get();
 
     return $get;
   }
