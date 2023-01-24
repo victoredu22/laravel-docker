@@ -24,20 +24,15 @@ class BooksController extends Controller
    * */
   public function index()
   {
-    try {
-      $books = $this->books->getBooks();
 
-      return response()
-        ->json([
-          'ok' => true,
-          'libros' => $books
-        ], 200);
-    } catch (Exception $e) {
-      return response()
-        ->json([
-          'error' => $e
-        ], 422);
-    }
+
+    $books = $this->books->getBooks();
+
+    return response()
+      ->json([
+        'ok' => true,
+        'books' => $books
+      ], 200);
   }
   /**
    * Metodo que crea un nuevo libro y ademas aumenta el stock

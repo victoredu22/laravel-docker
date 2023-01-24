@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\BookStock;
-use Illuminate\Support\Facades\DB as FacadesDB;
-
 
 class Book extends Model
 {
@@ -18,7 +16,6 @@ class Book extends Model
    */
   public function getBookId($idBook)
   {
-    $Book = new Book;
     $Book = Book::find($idBook);
     return $Book;
   }
@@ -29,9 +26,9 @@ class Book extends Model
    */
   public function getBooks()
   {
-    $get = FacadesDB::table('tblBook')
+
+    $get = Book::select('tblBook.idBook', 'tblBook.nameBook', 'tblBook.author', 'tblBook.detail', 'tblBook.state', 'tblBookStock.count', 'tblBook.destiny')
       ->join('tblBookStock', 'tblBook.idBook', '=', 'tblBookStock.idBook')
-      ->select('tblBook.idBook', 'tblBook.nameBook', 'tblBook.author', 'tblBook.detail', 'tblBook.state', 'tblBookStock.count', 'tblBook.destiny')
       ->get();
     return $get;
   }
@@ -42,12 +39,14 @@ class Book extends Model
    */
   public function findBookId($request)
   {
-    $get = FacadesDB::table('tblBook')
-      ->join('tblBookStock', 'tblBook.idBook', '=', 'tblBookStock.idBook')
+
+    $book = Book::find($request->id)
+      ->leftJoin('tblBookStock', 'tblBook.idBook', '=', 'tblBookStock.idBook')
       ->select('tblBook.idBook', 'tblBook.nameBook', 'tblBook.author', 'tblBook.detail', 'tblBook.state', 'tblBookStock.count')
-      ->where('tblBook.idBook', $request->idBook)
       ->first();
-    return $get;
+
+
+    return $book;
   }
 
 
@@ -78,6 +77,7 @@ class Book extends Model
    */
   public function createBooks($request)
   {
+
     $Book = new Book;
     $Book->nameBook = $request->name;
     $Book->author = $request->author;
