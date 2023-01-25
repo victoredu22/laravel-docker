@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Student extends Model
 {
-  protected $table = "tblStudent";
+  protected $table = "student";
   protected $primaryKey = "idStudent";
+  protected $fillable = [
+    'email',
+    'password',
+    'dni',
+  ];
 
   /**
    * Metodo que trae detalles de todos los alumnos del sistema junto al detalleALumno

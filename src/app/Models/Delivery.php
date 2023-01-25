@@ -6,9 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Delivery extends Model
 {
-  protected $table = "tblDelivery";
+  protected $table = "delivery";
   protected $primaryKey = "idDelivery";
-
+  protected $fillable = [
+    'idBook',
+    'idStudent',
+    'stateDelivery',
+    'dateDelivery',
+    'dateRetirement'
+  ];
 
   /**
    * Metodo que busca todos los pedidos activos del sistema
