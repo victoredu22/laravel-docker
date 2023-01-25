@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentCourse extends Model
 {
-  protected $table = "tblStudentCourse";
+  protected $table = "student_course";
   protected $primaryKey = "idStudentCourse";
-
+  protected $fillable = [
+    'idStudent',
+    'idDetailStudent'
+  ];
 
   public function getStudentById($idStudent)
   {

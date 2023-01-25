@@ -7,8 +7,18 @@ use App\Models\BookStock;
 
 class Book extends Model
 {
-  protected $table = "tblBook";
+  protected $table = "book";
   protected $primaryKey = "idBook";
+  protected $fillable = [
+    'nameBook',
+    'author',
+    'detail',
+    'state',
+    'count',
+    'destiny'
+  ];
+
+
   /**
    * Metodo con el metodo find que me trae la info del libro segun el id
    * 

@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookStock extends Model
 {
-  protected $table = "tblBookStock";
-  protected $primaryKey = "idBook";
+  protected $table = "book_stock";
+  protected $primaryKey = "idStockBook";
+
+  protected $fillable = [
+    'idBook',
+    'count',
+  ];
 
   /**
    * Metodo que disminuye en uno el stock del libro que fue pedido segun su id

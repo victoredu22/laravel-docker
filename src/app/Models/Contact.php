@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    protected $table = "tblContact";
+    protected $table = "contact";
     protected $primaryKey = "idContacto";
 
     public function insertContact($request)
